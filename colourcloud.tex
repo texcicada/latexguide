@@ -194,18 +194,19 @@ keywordstyle=\color{blue}\bfseries,
 
 %----------------------------------------------
 %=== Text formatting
-\begin{tcolorbox}[bluesyntax,title=textformat,]
+\begin{tcolorbox}[title=textformat,colframe=blue,]
 Typeset text as bold, italic, or both.\labelseeref{textformat}
 
 \See{textcolor}.
 \tcblower
+{\fcommand
 \frede{textbf}\fredd{text}\\
 \frede{textit}\fredd{text}\\
 \frede{bfseries}\\
 \frede{mdseries}\\
 \frede{itshape}\\
 \frede{upshape}\\
-\par\medskip
+\par\medskip}
 \begin{tcblisting}{codedemo,title={\dccodetitle{Text formatting -- commands}{textcommands}}}
 \raggedright Normal text, \textbf{bold text}, \textit{italic text}, \textbf{\textit{bold italic text}}. Back to normal text. %\textsc{Small Caps}
 \end{tcblisting}
