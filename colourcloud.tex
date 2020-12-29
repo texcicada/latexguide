@@ -1,0 +1,402 @@
+\documentclass{article}
+\usepackage{fontspec}
+\setmainfont{Noto Serif}
+\setsansfont{Noto Sans}
+\setfontface\fcommand{Hoefler Txt}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,listings,breakable}
+\usetikzlibrary{shadows,shapes.symbols}
+%\usepackage{hyperref}
+	
+
+\newcommand\fred[1]{\textrm{\textcolor{red}{{\sffamily\large#1}}}}
+
+\newcommand\fredd[1]{\fred{\{}#1\fred{\}}}
+
+\newcommand\frede[1]{\textbf{\textsf{\textcolor{blue}{\textbackslash#1}}}}
+
+\newcommand\seename{see}
+\newcommand\labelseeref[1]{\label{\seename:#1}}
+\newcommand\seeref[1]{\textit{#1}\textsuperscript{on p \pageref{\seename:#1}}}
+\newcommand\see[1]{see \seeref{#1}}
+\newcommand\See[1]{\ \hfill\small See \seeref{#1}}
+
+%===== democode: counter and label
+\newcounter{democodecounter}
+\newcommand\dccset{%
+\refstepcounter{democodecounter}%
+\thedemocodecounter%
+\label{dcc:\thedemocodecounter}%
+}
+
+%===== democode: title and number/textlabel
+\newcommand\dccodetitle[2]{%
+#1\hfill c.\dccset\label{dcc:#2}%
+}
+
+%===== democode: ref
+\newcommand\getdccref[1]{\textbf{c.\ref{dcc:#1}}}
+\newcommand\getdccrefp[1]{code example \textbf{c.\ref{dcc:#1}}\textsuperscript{on p \pageref{dcc:#1}}}
+
+
+
+%===== keywords
+\lstdefinelanguage[LaTeX]{TeX}
+{morekeywords={colorbox,
+textcolor,
+fbox,
+mbox,
+raggedright,			
+sffamily,
+ttfamily,
+rmfamily,
+textit,
+textbf,
+texttt,
+textsf,
+textsc,
+bfseries,
+mdseries,
+itshape,
+upshape,
+fcolorbox,
+setlength,
+begin,
+item,
+end,
+section,
+},
+%sensitive=false,
+%morecomment=[l]{//},
+%morecomment=[s]{/*}{*/},
+%morestring=[b]",
+}
+
+
+
+%===== codeline label
+\newcounter{clcounter}
+\newcommand\cllabel{%
+\refstepcounter{clcounter}%
+\marginpar{\ \\(\theclcounter)}%
+\label{cl:\theclcounter}%
+}
+
+
+%===== codeline environment
+\newenvironment{codeline}[1]{%
+	\begin{center}
+		\ttfamily\cllabel\label{cl:#1}
+}%		\lstinline!\textit{italic text}! 
+{	\end{center}\ignorespaces
+}
+
+
+
+%===== codeline ref
+\newcommand\getclref[1]{(\ref{cl:#1})}
+\newcommand\getclpref[1]{\pageref{cl:#1}}
+\newcommand\getclGen[1]{%
+Codeline \getclref{#1}\textsuperscript{on p \getclpref{#1}}%
+}
+\newcommand\getclgen[1]{%
+codeline \getclref{#1}\textsuperscript{on p \getclpref{#1}}%
+}
+
+
+
+
+%========================================
+\begin{document}\begin{tcolorbox}[enhanced,width=2.5cm,
+%square,circular arc,
+square,octogon arc,
+arc is angular,%cloud,
+halign=center,valign=center,
+colback=red!5!white,colframe=red!75!black,
+%frame code={\node[cloud, draw, fill=blue!20, aspect=2] {ABC};},
+frame style={left color=red!75!black,
+right color=blue!75!black}
+ ]
+tcolorbox
+\end{tcolorbox}
+
+\begin{tcolorbox}[enhanced,
+size=minimal,auto outer arc,
+width=2.1cm,octogon arc,
+colback=red,colframe=white,colupper=white,
+fontupper=\fontsize{7mm}{7mm}\selectfont\bfseries\sffamily,
+halign=center,valign=center,
+square,arc is angular,
+borderline={0.2mm}{-1mm}{red} ]
+STOP
+\end{tcolorbox}
+\begin{tcolorbox}[enhanced,
+size=minimal,auto outer arc,
+width=2.1cm,octogon arc,
+colback=red,colframe=white,colupper=white,
+fontupper=\fontsize{7mm}{7mm}\selectfont\bfseries\sffamily,
+halign=center,valign=center,
+square,arc is angular,
+borderline={0.2mm}{-1mm}{red} ]
+СТОП
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[tikz upper,title=TikZ drawing,colframe=blue]
+\node[cloud, draw, fill=blue!20, aspect=2] {Cloud};
+\end{tcolorbox}
+
+%\begin{tcolorbox}[title=fcolorbox,colframe=blue,fontlower=\fcommand,]
+%Draw a coloured frame around text on a coloured background.
+%\tcblower
+%\frede{fcolorbox}\fredd{frame-colour}\fredd{text-background-colour}\fredd{text}
+%\end{tcolorbox}
+
+
+%\begin{tcolorbox}[title=textcolor,colframe=blue,fontlower=\fcommand,]
+%Typeset coloured text.
+%\tcblower
+%\frede{textcolor}\fredd{text-colour}\fredd{text}
+%\end{tcolorbox}
+
+
+
+\begin{tcblisting}{tikz lower,listing side text,fonttitle=\bfseries,
+bicolor,colback=blue!50!white,colbacklower=white,colframe=black,
+righthand width=3cm,title=TikZ\ drawing}
+\path[fill=yellow,draw=yellow!75!red]
+(0,0) circle (1cm);
+\fill[red] (45:5mm) circle (1mm);
+\fill[red] (135:5mm) circle (1mm);
+\draw[line width=1mm,red]
+(215:5mm) arc (215:325:5mm);
+\end{tcblisting}
+
+
+
+
+%===============================
+%pre-sets
+\tcbset{codedemo/.style={listing side text,fonttitle=\bfseries\sffamily,
+bicolor,colback=blue!12,colbacklower=yellow!72!green!32,colframe=black,
+righthand width=3cm}}
+
+\tcbset{bluesyntax/.style={%
+ colframe=blue,fontlower=\fcommand,
+}}
+
+\lstset{%
+language={[LaTeX]TeX},
+keywordstyle=\color{blue}\bfseries,
+}
+
+
+
+%----------------------------------------------
+%=== Text formatting
+\begin{tcolorbox}[bluesyntax,title=textformat,]
+Typeset text as bold, italic, or both.\labelseeref{textformat}
+
+\See{textcolor}.
+\tcblower
+\frede{textbf}\fredd{text}\\
+\frede{textit}\fredd{text}\\
+\frede{bfseries}\\
+\frede{mdseries}\\
+\frede{itshape}\\
+\frede{upshape}\\
+\par\medskip
+\begin{tcblisting}{codedemo,title={\dccodetitle{Text formatting -- commands}{textcommands}}}
+\raggedright Normal text, \textbf{bold text}, \textit{italic text}, \textbf{\textit{bold italic text}}. Back to normal text. %\textsc{Small Caps}
+\end{tcblisting}
+\begin{tcblisting}{codedemo,title={\dccodetitle{Text formatting -- switches}{textswitches}}}
+\raggedright Normal text, \bfseries bold text, \itshape bold italic text, \upshape back to upright bold, \mdseries \itshape now some italics, \upshape and back to normal text.
+\end{tcblisting}
+\end{tcolorbox}
+
+
+%\begin{tcblisting}{codedemo,title={\dccodetitle{Text formatting -- commands}{textcommands}}}
+%\raggedright Normal text, \textbf{bold text}, \textit{italic text}, \textbf{\textit{bold italic text}}. Back to normal text.
+%\end{tcblisting}
+
+The command
+%	\fbox{\parbox{0.8\linewidth}{%
+	\begin{codeline}{textit}
+%		\ttfamily
+		\lstinline!\textit{italic text}! 
+	\end{codeline}
+%	}}
+switches to italics locally: 
+	\begin{codeline}{local}
+		\lstinline!\textit[1]{{\itshape#1}}!
+	\end{codeline}
+
+
+%\begin{tcblisting}{codedemo,title={\dccodetitle{Text formatting -- switches}{textswitches}}}
+%\raggedright Normal text, \bfseries bold text, \itshape bold italic text, \upshape back to upright bold, \mdseries \itshape now some italics, \upshape and back to normal text.
+%\end{tcblisting}
+
+
+
+
+%----------------------------------------------
+%=== Font families
+\begin{tcolorbox}[bluesyntax,title=fontfamily,]
+Set text in a paricular font family: serif (roman), sans-serif, mono-spaced.\labelseeref{fontfamily}
+
+%\See{xxx}.
+\tcblower
+%\frede{textrm}\fredd{text}\\
+\frede{textsf}\fredd{text}\\
+\frede{texttt}\fredd{text}\\
+\frede{rmfamily}\\
+\frede{sffamily}\\
+\frede{ttfamily}\\
+\par\medskip
+\begin{tcblisting}{codedemo,title={\dccodetitle{Font families -- commands}{fontfamilycommands}}}
+\raggedright Serif text (roman) abfgy 123, \textsf{sans text abfgy 123}, \texttt{mono-spaced text abfgy 123}, back to normal text.
+\end{tcblisting}
+\begin{tcblisting}{codedemo,title={\dccodetitle{Font families -- switches}{fontfamilyswitches}}}
+\raggedright Serif text (roman) abfgy 123, \sffamily sans text abfgy 123, \ttfamily mono-spaced text abfgy 123, \rmfamily back to normal text.
+\end{tcblisting}
+\end{tcolorbox}
+
+
+
+
+
+\begin{tcblisting}{codedemo,title={\dccodetitle{Boxes -- mbox}{mbox}}}
+Some text \mbox{a a a a a a a} b b b b b b b b b b b b b b 
+\end{tcblisting}
+
+\begin{tcblisting}{codedemo,title={\dccodetitle{Boxes -- fbox}{fbox}}}
+\raggedright Some \fbox{text} in a frame.
+\end{tcblisting}
+
+
+\begin{tcolorbox}[bluesyntax,title=colorbox,]
+Put text on a coloured background.\labelseeref{colorbox}
+
+\See{fcolorbox}.
+\tcblower
+\frede{colorbox}\fredd{text-background-colour}\fredd{text}\par\medskip
+\begin{tcblisting}{codedemo,title={\dccodetitle{Boxes -- colorbox}{colorbox}}}
+\raggedright Some coloured \colorbox{yellow!50}{ \textcolor{red}{text} }.
+\end{tcblisting}
+\end{tcolorbox}
+See \getdccrefp{fcolorbox} for the framed version.
+
+%\begin{tcblisting}{codedemo,title={\dccodetitle{Boxes -- fcolorbox}{fcolorbox}}}
+%\raggedright Some framed \& coloured \fcolorbox{blue}{yellow!50}{text}.
+%\end{tcblisting}
+
+
+
+
+
+\begin{tcolorbox}[bluesyntax,title=fcolorbox,]
+Draw a coloured frame around text on a coloured background.\labelseeref{fcolorbox}
+
+\See{colorbox}.
+\tcblower
+\frede{fcolorbox}\fredd{frame-colour}\fredd{text-background-colour}\fredd{text}\par\medskip
+\begin{tcblisting}{codedemo,title={\dccodetitle{Boxes -- fcolorbox}{fcolorbox}}}
+\raggedright Some framed \& coloured \fcolorbox{blue}{yellow!50}{text}.
+\end{tcblisting}
+\end{tcolorbox}
+
+
+
+%\begin{tcblisting}{codedemo,title={\dccodetitle{Boxes -- fboxrule}{fboxrule}}}
+%\setlength{\fboxrule}{3pt}
+%\raggedright Some framed \& coloured \fcolorbox{blue}{yellow!50}{text}.
+%\end{tcblisting}
+
+%\begin{tcblisting}{codedemo,title={\dccodetitle{Boxes -- fboxsep}{fboxsep}}}
+%\setlength{\fboxrule}{3pt}
+%\setlength{\fboxsep}{0pt}
+%\raggedright Some framed \& coloured \fcolorbox{blue}{yellow!50}{text}.
+%\end{tcblisting}
+
+
+
+
+\begin{tcolorbox}[title=textcolor,colframe=blue,fontlower=\fcommand,]
+Typeset coloured text.\labelseeref{textcolor}
+
+\See{textformat}.
+\tcblower
+\frede{textcolor}\fredd{text-colour}\fredd{text}\par\medskip
+\begin{tcblisting}{codedemo,title={\dccodetitle{Text -- textcolor}{textcolor}}}
+\raggedright Some coloured \textcolor{red}{red text} and some \textcolor{blue}{blue text}.
+\end{tcblisting}
+\end{tcolorbox}
+
+
+
+\begin{tcolorbox}[enhanced,breakable,title=adjusting boxes,colframe=blue,fontlower=\fcommand,]
+Change the rule width, and the separator width between rule and text.
+\tcblower
+\frede{setlength}\fredd{\frede{fboxrule}}\fredd{length}\\\frede{setlength}\fredd{\frede{fboxsep}}\fredd{length}\par\medskip
+\begin{tcblisting}{codedemo,title={\dccodetitle{Boxes -- fboxrule}{fboxrule}}}
+\setlength{\fboxrule}{3pt}
+\raggedright Some framed \& coloured \fcolorbox{blue}{yellow!50}{%
+\textcolor{red}{text}}.
+\end{tcblisting}
+\begin{tcblisting}{codedemo,title={\dccodetitle{Boxes -- fboxsep}{fboxsep}}}
+\setlength{\fboxrule}{3pt}
+\setlength{\fboxsep}{0pt}
+\raggedright Some framed \& coloured \fcolorbox{blue}{yellow!50}{%
+\textcolor{red}{text}}.
+\end{tcblisting}
+\end{tcolorbox}
+
+
+
+
+
+
+
+%\begin{tcblisting}{codedemo,title={\dccodetitle{Boxes -- fboxsep}{fboxsep}}}
+%\setlength{\fboxrule}{-10pt}
+%%\setlength{\fboxsep}{-10pt}
+%\raggedright Some framed \& coloured \fcolorbox{blue}{yellow!50}{text}.
+%\end{tcblisting}
+
+
+
+%----------------------------------------------
+%=== Lists
+\begin{tcblisting}{codedemo,title={\dccodetitle{Lists -- enumerate}{enumerate}}}
+\begin{enumerate} \item xxx \item xxx \begin{enumerate} \item yyy \item yyy \begin{enumerate} \item zzz \item zzz \item zzz\end{enumerate} \item yyy\end{enumerate} \item xxx\end{enumerate}
+\end{tcblisting}
+
+
+\begin{tcblisting}{codedemo,title={\dccodetitle{Lists -- itemize}{itemize}}}
+\begin{itemize} \item xxx \item xxx \begin{itemize} \item yyy \item yyy \begin{itemize} \item zzz \item zzz \item zzz\end{itemize} \item yyy\end{itemize} \item xxx\end{itemize}
+\end{tcblisting}
+
+
+\begin{tcblisting}{codedemo,title={\dccodetitle{Lists -- description}{description}}}
+\begin{description} \item[doe] `a deer, a female deer' \begin{description} \item[buck] the male \item[fawn] a young deer \end{description} \item[ray] `a beam of golden sun' \end{description}
+\end{tcblisting}
+
+
+\begin{tcblisting}{codedemo,title={\dccodetitle{Section levels -- section}{section}}}
+\section{X} xxx \section*{Y} yyy \section{Z} zzz 
+\end{tcblisting}
+
+\section{xxx}
+
+\begin{tcblisting}{codedemo,title={\dccodetitle{Environments -- abstract}{abstract}}}
+\begin{abstract}
+... x  x  x    x x  x
+\end{abstract}
+\end{tcblisting}
+
+
+\getclGen{local} is an example of locally-grouped formatting.
+
+
+
+\end{document}
